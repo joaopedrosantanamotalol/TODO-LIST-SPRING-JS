@@ -45,16 +45,16 @@ O sistema permite criar, listar, atualizar e remover tarefas com prioridade e st
 
 # 📂 Estrutura do projeto
 segundoSpring/
-│
-├── src/main/java/ → código backend
-├── src/main/resources/
-│ ├── static/ → frontend (html, css, js)
-│ └── application.properties
-│
-├── data/ → banco local gerado automaticamente
-├── mvnw
-├── mvnw.cmd
-└── pom.xml
+│<br>
+├── src/main/java/ → código backend<br>
+├── src/main/resources/<br>
+│ ├── static/ → frontend (html, css, js)<br>
+│ └── application.properties<br>
+│<br>
+├── data/ → banco local gerado automaticamente<br>
+├── mvnw<br>
+├── mvnw.cmd<br>
+└── pom.xml<br>
 
 
 ---

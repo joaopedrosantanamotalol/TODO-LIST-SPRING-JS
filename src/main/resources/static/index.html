@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Todos</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<h1>Lista de Todos</h1>
+
+<input id="nome" placeholder="Nome" required>
+<input id="descricao" placeholder="Descrição" required>
+<input id="prioridade" type="number" placeholder="Prioridade" required min="1">
+
+
+<button onclick="criar()">Criar</button>
+<button onclick="atualizar()">Atualizar</button>
+<table border="1">
+  <thead>
+    <tr>
+      <th>Tarefa</th>
+      <th>Descrição</th>
+      <th>Prioridade</th>
+      <th>Realizado?</th>
+      <th>Apagar</th>
+    </tr>
+  </thead>
+
+  <tbody id="lista"></tbody>
+</table>
+
+
+<!-- conecta o JS -->
+<script src="script.js"></script>
+
+</body>
+</html>

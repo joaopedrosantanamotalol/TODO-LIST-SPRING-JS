@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import com.example.segundoSpring.entity.todo;
 import com.example.segundoSpring.repository.todoRepository;
@@ -45,5 +46,17 @@ public class todoService {
         todoRepository.deleteById(id);
         return list();
     }
-    
+
+    public todo findById(Long id){
+    return todoRepository.findById(id)
+        .orElseThrow(() -> new RuntimeException("Todo não encontrado"));
+}
+
+    public void atualizarRealizado(Long id, Boolean realizado){
+        todo t = todoRepository.findById(id)
+            .orElseThrow(() -> new RuntimeException("Todo não encontrado"));
+
+        t.setRealizado(realizado != null && realizado);
+        todoRepository.save(t);
+}
 }

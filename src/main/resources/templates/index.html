@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Todos</title>
+  <link rel="stylesheet" th:href="@{/style.css}">
+</head>
+
+<body>
+
+<h1>Lista de Todos</h1>
+
+<!-- FORM CRIAR -->
+<form th:action="@{/pagina/criar}" method="post">
+
+  <input name="nome" placeholder="Nome" required>
+  <input name="descricao" placeholder="Descrição" required>
+  <input name="prioridade" type="number" placeholder="Prioridade" min="1" required>
+
+  <button type="submit">Criar</button>
+</form>
+
+<br>
+
+<table border="1">
+  <thead>
+    <tr>
+      <th>Tarefa</th>
+      <th>Descrição</th>
+      <th>Prioridade</th>
+      <th>Realizado?</th>
+      <th>Apagar</th>
+    </tr>
+  </thead>
+
+  <tbody>
+
+    <tr th:each="todo : ${todos}">
+      <td th:text="${todo.nome}"></td>
+      <td th:text="${todo.descricao}"></td>
+      <td th:text="${todo.prioridade}"></td>
+
+      <!-- atualizar realizado -->
+      <td>
+        <form th:action="@{/pagina/realizado}" method="post">
+          <input type="hidden" name="id" th:value="${todo.id}">
+          <input type="checkbox"
+                 name="realizado"
+                 th:checked="${todo.realizado}"
+                 onchange="this.form.submit()">
+        </form>
+      </td>
+
+      <!-- deletar -->
+      <td>
+        <form th:action="@{/pagina/deletar}" method="post">
+          <input type="hidden" name="id" th:value="${todo.id}">
+          <button type="submit">X</button>
+        </form>
+      </td>
+
+    </tr>
+
+  </tbody>
+</table>
+
+</body>
+</html>

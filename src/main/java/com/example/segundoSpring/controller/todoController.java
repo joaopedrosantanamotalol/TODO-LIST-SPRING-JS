@@ -2,6 +2,7 @@ package com.example.segundoSpring.controller;
 
 import java.util.List;
 
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -44,5 +45,4 @@ List<todo> update(@RequestBody todo todo){
 List<todo> delete(@PathVariable Long id){
     return todoService.delete(id);
 }
-
 }

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Teste</title>
+    <link rel="stylesheet" th:href="@{/segunda.css}">
+</head>
+
+<body>
+<h1>Seus todos</h1>
+
+<ul>
+  <li th:each="todo : ${todos}" class="card">
+    <h3 th:text="${todo.nome}"></h3>
+
+    <p>
+      <b>Descrição:</b>
+      <span th:text="${todo.descricao}"></span>
+    </p>
+
+    <p class="prioridade">
+      Prioridade: <span th:text="${todo.prioridade}"></span>
+    </p>
+
+    <p class="status"
+       th:classappend="${todo.realizado} ? 'feito' : 'nao-feito'">
+
+      <span th:text="${todo.realizado} ? '✔ Concluído' : '❌ Pendente'"></span>
+
+    </p>
+
+  </li>
+</ul>
+
+</body>
+</html>

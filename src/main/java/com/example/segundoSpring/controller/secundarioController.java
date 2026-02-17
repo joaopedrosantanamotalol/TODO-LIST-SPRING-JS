@@ -42,9 +42,16 @@ public String criar(todo todo){
 }
 
 @PostMapping("/deletar")
+
 public String deletar(@RequestParam Long id){
         todoService.delete(id);
         return "redirect:/pagina";
+}
+
+@GetMapping("/segunda")
+public String segundaPagina(Model model){
+    model.addAttribute("todos", todoService.list());
+    return "teste";
 }
 
 }

@@ -1,0 +1,62 @@
+/* fundo da página */
+body {
+  font-family: Arial, sans-serif;
+  background: #f4f6f9;
+  padding: 40px;
+}
+
+/* remove bolinhas da lista */
+ul {
+  list-style: none;
+  padding: 0;
+}
+
+/* container dos cards */
+ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+/* CARD */
+.card {
+  background: white;
+  border-radius: 12px;
+  padding: 20px;
+  width: 250px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  transition: 0.2s;
+}
+
+/* efeito hover */
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+}
+
+/* título */
+.card h3 {
+  margin: 0 0 10px 0;
+}
+
+/* prioridade */
+.prioridade {
+  color: #1976d2;
+  font-weight: bold;
+}
+
+/* status */
+.status {
+  margin-top: 10px;
+  font-weight: bold;
+}
+
+/* quando feito */
+.feito {
+  color: green;
+}
+
+/* quando não feito */
+.nao-feito {
+  color: red;
+}

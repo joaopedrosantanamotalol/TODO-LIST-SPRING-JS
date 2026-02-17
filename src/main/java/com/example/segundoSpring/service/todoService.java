@@ -6,6 +6,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.example.segundoSpring.entity.todo;
+import com.example.segundoSpring.entity.user;
 import com.example.segundoSpring.repository.todoRepository;
 
 //regras de negócio / operações
@@ -58,5 +59,9 @@ public class todoService {
         t.setRealizado(realizado != null && realizado);
         todoRepository.save(t);
 }
+
+    public List<todo> listByUser(user usuario){
+        return todoRepository.findByUsuario(usuario);
+    }
 
 }

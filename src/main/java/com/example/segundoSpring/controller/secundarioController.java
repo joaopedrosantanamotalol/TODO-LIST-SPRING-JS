@@ -45,8 +45,13 @@ public String atualizarRealizado(@RequestParam Long id,@RequestParam(required = 
 }
 
 @PostMapping("/criar")
-public String criar(todo todo){
+public String criar(todo todo, HttpSession session){
+
+    user usuario = (user) session.getAttribute("usuario");
+    todo.setUsuario(usuario);
+
     todoService.create(todo);
+
     return "redirect:/pagina";
 }
 

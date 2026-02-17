@@ -8,8 +8,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.segundoSpring.entity.todo;
+import com.example.segundoSpring.entity.user;
 import com.example.segundoSpring.service.todoService;
-import com.example.segundoSpring.entity.todo;
+
+import jakarta.servlet.http.HttpSession;
 
 @Controller
 @RequestMapping("/pagina")
@@ -23,7 +25,14 @@ public secundarioController(todoService todoService) {
 }
 
 @GetMapping
-public String mostrarPagina(Model model){
+public String mostrarPagina(Model model, HttpSession session){
+
+    user usuario = (user) session.getAttribute("usuario");
+
+    if (usuario == null){
+        return "redirect:/auth/login";
+    }
+
     model.addAttribute("todos", todoService.list());
     return "index";
 }

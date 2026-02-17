@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PostMapping;
 
 import com.example.segundoSpring.entity.todo;
 import com.example.segundoSpring.repository.todoRepository;
@@ -59,4 +58,5 @@ public class todoService {
         t.setRealizado(realizado != null && realizado);
         todoRepository.save(t);
 }
+
 }

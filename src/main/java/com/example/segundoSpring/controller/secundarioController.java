@@ -33,16 +33,26 @@ public String mostrarPagina(Model model, HttpSession session){
         return "redirect:/auth/login";
     }
 
-    model.addAttribute("todos", todoService.list());
+    model.addAttribute("todos", todoService.listByUser(usuario));
     return "index";
 }
 
 @PostMapping("/realizado")
-public String atualizarRealizado(@RequestParam Long id,@RequestParam(required = false) Boolean realizado){
+public String atualizarRealizado(@RequestParam Long id,
+                                 @RequestParam(required = false) Boolean realizado,
+                                 HttpSession session){
 
-    todoService.atualizarRealizado(id, realizado);
+    user usuario = (user) session.getAttribute("usuario");
+
+    if(usuario == null){
+        return "redirect:/auth/login";
+    }
+
+    todoService.atualizarRealizado(id, realizado, usuario);
+
     return "redirect:/pagina";
 }
+
 
 @PostMapping("/criar")
 public String criar(todo todo, HttpSession session){
@@ -50,21 +60,34 @@ public String criar(todo todo, HttpSession session){
     user usuario = (user) session.getAttribute("usuario");
     todo.setUsuario(usuario);
 
-    todoService.create(todo);
+    todoService.create(todo,usuario);
+
+    return "redirect:/pagina";
+}
+@PostMapping("/deletar")
+public String deletar(@RequestParam Long id, HttpSession session){
+
+    user usuario = (user) session.getAttribute("usuario");
+
+    if(usuario == null){
+        return "redirect:/auth/login";
+    }
+
+    todoService.delete(id, usuario);
 
     return "redirect:/pagina";
 }
 
-@PostMapping("/deletar")
-
-public String deletar(@RequestParam Long id){
-        todoService.delete(id);
-        return "redirect:/pagina";
-}
-
 @GetMapping("/segunda")
-public String segundaPagina(Model model){
-    model.addAttribute("todos", todoService.list());
+public String segundaPagina(Model model, HttpSession session){
+     user usuario = (user) session.getAttribute("usuario");
+
+    if(usuario == null){
+        return "redirect:/auth/login";
+    }
+
+    model.addAttribute("todos", todoService.listByUser(usuario));
+
     return "teste";
 }
 

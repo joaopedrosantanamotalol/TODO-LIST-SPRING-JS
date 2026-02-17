@@ -1,47 +1,73 @@
 package com.example.segundoSpring.controller;
 
 import java.util.List;
+import org.springframework.web.bind.annotation.*;
 
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 import com.example.segundoSpring.entity.todo;
+import com.example.segundoSpring.entity.user;
 import com.example.segundoSpring.service.todoService;
 
+import jakarta.servlet.http.HttpSession;
+
 @RestController
-// Atribui a rota /todos
 @RequestMapping("/todos")
 public class todoController {
 
-private todoService todoService;
+    private todoService todoService;
 
-// chamada do service
-public todoController(todoService todoService) {
-    this.todoService = todoService;
-}
+    public todoController(todoService todoService) {
+        this.todoService = todoService;
+    }
 
-@PostMapping
-List<todo> create(@RequestBody todo todo){
-    return todoService.create(todo);
-}
+    // criar todo para usuário logado
+    @PostMapping
+    public List<todo> create(@RequestBody todo todo, HttpSession session){
 
-@GetMapping
-List<todo> list(){
-    return todoService.list();
-}
+        user usuario = (user) session.getAttribute("usuario");
 
-@PutMapping()
-List<todo> update(@RequestBody todo todo){
-    return todoService.update(todo);
-}
+        if(usuario == null){
+            throw new RuntimeException("Usuário não logado");
+        }
 
-@DeleteMapping("/{id}")
-List<todo> delete(@PathVariable Long id){
-    return todoService.delete(id);
-}
+        return todoService.create(todo, usuario);
+    }
+
+    // listar apenas todos do usuário logado
+    @GetMapping
+    public List<todo> list(HttpSession session){
+
+        user usuario = (user) session.getAttribute("usuario");
+
+        if(usuario == null){
+            throw new RuntimeException("Usuário não logado");
+        }
+
+        return todoService.listByUser(usuario);
+    }
+
+    // update só do dono
+    @PutMapping
+    public List<todo> update(@RequestBody todo todo, HttpSession session){
+
+        user usuario = (user) session.getAttribute("usuario");
+
+        if(usuario == null){
+            throw new RuntimeException("Usuário não logado");
+        }
+
+        return todoService.update(todo, usuario);
+    }
+
+    // delete só do dono
+    @DeleteMapping("/{id}")
+    public List<todo> delete(@PathVariable Long id, HttpSession session){
+
+        user usuario = (user) session.getAttribute("usuario");
+
+        if(usuario == null){
+            throw new RuntimeException("Usuário não logado");
+        }
+
+        return todoService.delete(id, usuario);
+    }
 }
